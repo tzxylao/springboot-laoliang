@@ -10,7 +10,8 @@ import org.springframework.stereotype.Component;
 public class AddOperation implements CalculateStrategy {
     @Override
     public int doOperation(int num1, int num2) {
-        return num1 + num2;
+        throw new RuntimeException("相加异常");
+//        return num1 + num2;
     }
 
 }

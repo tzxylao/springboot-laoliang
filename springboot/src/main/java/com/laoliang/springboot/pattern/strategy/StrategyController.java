@@ -1,5 +1,6 @@
 package com.laoliang.springboot.pattern.strategy;
 
+import com.laoliang.springboot.common.ResultInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +17,7 @@ public class StrategyController {
     private CalculatelOperationContext calculatelOperationContext;
 
     @RequestMapping(value = "/operation")
-    public String strategySelect(@RequestParam("mode") String mode) {
-        return String.valueOf(calculatelOperationContext.strategySelect(mode).doOperation(20, 5));
+    public ResultInfo strategySelect(@RequestParam("mode") String mode) {
+        return ResultInfo.ok(String.valueOf(calculatelOperationContext.strategySelect(mode).doOperation(20, 5)));
     }
 }
