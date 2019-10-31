@@ -170,5 +170,7 @@ public class StreamTest {
         Stream<String[]> stream = Stream.of("I am Jim", "hello world").map(s -> s.split(" "));
         System.out.println(Arrays.toString(stream.toArray()));
         System.out.println("---------");
+
+        System.out.println("test");
     }
 }
