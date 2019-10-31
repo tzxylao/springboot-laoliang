@@ -171,6 +171,6 @@ public class StreamTest {
         System.out.println(Arrays.toString(stream.toArray()));
         System.out.println("---------");
 
-        System.out.println("test");
+        System.out.println("test branch-1");
     }
 }
