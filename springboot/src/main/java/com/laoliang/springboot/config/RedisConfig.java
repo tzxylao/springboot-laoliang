@@ -8,12 +8,16 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.lang.reflect.Method;
+import java.time.Duration;
 
 /**
  * @author laoliangliang
@@ -22,6 +26,7 @@ import java.lang.reflect.Method;
 @Configuration
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
+
     @Bean(name = "redisTemplate")
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
@@ -51,5 +56,22 @@ public class RedisConfig extends CachingConfigurerSupport {
                 return sb.toString();
             }
         };
+    }
+
+    @Bean
+    public RedisCacheConfiguration cacheConfiguration() {
+        RedisCacheConfiguration cacheConfig = RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(600))
+                .disableCachingNullValues();
+        return cacheConfig;
+    }
+
+    @Bean
+    public RedisCacheManager cacheManager(LettuceConnectionFactory lettuceConnectionFactory) {
+        RedisCacheManager rcm = RedisCacheManager.builder(lettuceConnectionFactory)
+                .cacheDefaults(cacheConfiguration())
+                .transactionAware()
+                .build();
+        return rcm;
     }
 }
