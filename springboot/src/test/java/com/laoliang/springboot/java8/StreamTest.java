@@ -2,6 +2,10 @@ package com.laoliang.springboot.java8;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -172,5 +176,27 @@ public class StreamTest {
         System.out.println("---------");
 
         System.out.println("test master");
+    }
+
+    @Test
+    public void testFileinp() throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        FileInputStream inputStream=new FileInputStream("E:/test/te.txt");
+        FileOutputStream outputStream=new FileOutputStream("E:/test/te2.txt");
+        FileOutputStream outputStreams=new FileOutputStream("E:/test/te3.txt");
+        int len;
+        byte [] by=new byte[8192];
+        while ((len=inputStream.read(by))!=-1){
+            outputStream.write(by,0,len);
+        }
+        /*if(inputStream.read()==-1){
+            Class in=inputStream.getClass();
+            Method openo= in.getDeclaredMethod("open0", String.class);
+            openo.setAccessible(true);
+            openo.invoke(inputStream,"E:/test/te.txt");
+        }*/
+        while ((len=inputStream.read(by))!=-1){
+            outputStreams.write(by,0,len);
+        }
+        outputStream.close();
     }
 }
