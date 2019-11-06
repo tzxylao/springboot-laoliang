@@ -16,4 +16,10 @@ public class UserController {
     public ResultInfo strategySelect() {
         return ResultInfo.ok(userService.getAll());
     }
+
+    @RequestMapping(value = "/user/ex")
+    public ResultInfo ex() {
+        System.exit(1);
+        return ResultInfo.ok();
+    }
 }

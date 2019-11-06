@@ -6,6 +6,7 @@ import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.NestedServletException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,6 +30,11 @@ public class SystemExceptionHandler {
         return new ResultInfo(false, 9998, e.getMessage(), e.getResultInfo().getData());
     }
 
+    @ExceptionHandler(value = NestedServletException.class)
+    @ResponseBody
+    public ResultInfo NestedServletExceptionHandler(HttpServletRequest request, NestedServletException e) throws NestedServletException {
+        throw e;
+    }
 
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
