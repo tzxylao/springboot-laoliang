@@ -4,7 +4,7 @@ FROM java:latest
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-COPY ./target/*.jar /tmp
+COPY ./springboot/target/*.jar /tmp
 
 RUN cp -f ./tmp/*.jar /app.jar
 
