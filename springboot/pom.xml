@@ -105,6 +105,13 @@
         </build>-->
     <build>
         <finalName>app</finalName>
+        <plugins>
+            <!--使用springboot启动器类方式打包jar -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
 
 </project>
